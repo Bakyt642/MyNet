@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    {{ comments_form.as_p }}
+
+    <button type="submit">Edit Comment</button>
+  </form>
+
+{% endblock %}

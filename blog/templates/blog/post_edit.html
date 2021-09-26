@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div id="detail_content">
+  <form action="" method="POST">
+    {% csrf_token %}
+       <div class="postlist">   {{ post_form.category.label }} </div>
+      <div class="postlist">      {{ post_form.category }}</div>
+      <div class="postlist">  {{ post_form.category.error }} </div>
+        <div class="postlist">   {{ post_form.title.label }} </div>
+      <div class="postlist">      {{ post_form.title }}</div>
+      <div class="postlist">   {{ post_form.title.error }} </div>
+        <div class="postlist">   {{ post_form.body.label }} </div>
+      <div class="postlist">      {{ post_form.body }}</div>
+      <div class="postlist">   {{ post_form.body.error }} </div>
+
+    <input type="submit" value="Edit Post"></p>
+  </form>
+</div>
+{% endblock %}

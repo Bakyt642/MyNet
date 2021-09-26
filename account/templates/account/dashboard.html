@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<div id="detail_content">
+  <h1>User Profile</h1>
+   <img   width="64" height="64" src="{{ user.profile.photo.url }}">
+        <div >
+            <p >
+           <div><strong class="d-block text-gray-dark">Пользователь: {{user.username}}</strong></div>
+            <b>Email:</b> {{ user.email }}
+            <h1>test</h1>
+            </p>
+        </div>
+  <p>Welcome to your dashboard. You can <a href="{% url "edit" %}">edit your profile</a> or <a href="{% url "password_change" %}">change your password</a>.</p>
+</div>
+    {% endblock %}

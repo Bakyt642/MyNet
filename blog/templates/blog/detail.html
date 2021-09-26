@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+<div id="detail_content">
+    <h1>{{ post.title }}</h1>
+    <h2>
+      <a href="{{ post.category.get_absolute_url }}">
+        {{ post.category }}
+      </a>
+    </h2>
+  <p class="date">
+    Published {{ post.publish }} by {{ post.author }}
+  </p>
+
+  <p>
+
+    {{ post.body|linebreaks }}
+ {% if post.author == user %}
+     <a href="{% url 'post_edit' post.publish.year post.publish.month post.publish.day post.slug %}"> Update Post</a>
+    <a href="{% url 'post_delete' post.publish.year post.publish.month post.publish.day post.slug %}"> Delete Post</a>
+ {% endif %}
+
+
+{% with comments.count as total_comments %}
+    <h2>
+         {{ total_comments }} comment{{ total_comments|pluralize }}
+    </h2>
+{% endwith %}
+{% for comment in comments %}
+    <div class="comment">
+      <p class="info">
+           {{ comment.author }} commented on
+          {{ comment.created }}
+      </p>
+      {{ comment.body|linebreaks }}
+        {% if comment.author == user %}
+        <a href="{% url 'comment_edit' comment.id %}"> Update Comment</a>
+        <a href="{% url 'comment_delete' comment.id %}"> Delete Comment</a>
+         {% endif %}
+    </div>
+      {% empty %}
+    <p>There are no comments yet.</p>
+{% endfor %}
+{% if new_comment %}
+        <h2>Your comment has been added.</h2>
+{% else %}
+<h2>Add a new comment</h2>
+<form method="post">
+            {{ comment_form.as_p }}
+            {% csrf_token %}
+            <p><input type="submit" value="Add comment"></p>
+        </form>
+{% endif %}
+
+</div>
+
+{% endblock %}

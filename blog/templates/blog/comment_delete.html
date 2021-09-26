@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+  <form action="" method="POST">
+    {% csrf_token %}
+   {{ comments_form.as_p }}
+    Do you really to delete comment ?
+
+    <button type="submit">Yes, delete</button>
+    <a href="/">No, keep comment</a>
+  </form>
+
+{% endblock %}
