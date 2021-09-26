@@ -2,7 +2,8 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
-
+from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
 # Create your models here.
 class PublishedManager(models.Manager):
     def get_queryset(self):
@@ -36,7 +37,7 @@ class Post (models.Model):
     author = models.ForeignKey(User,
                                on_delete=models.CASCADE,
                                related_name='blog_posts')
-    body = models.TextField()
+    body = RichTextUploadingField()
     publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -82,3 +83,9 @@ class Comment(models.Model):
 
         def __str__(self):
               return f'Comment by {self.name} on {self.post}'
+
+# class PostImage(models.Model):
+#     flat= models.ForeignKey(Post, blank=True, null=True,related_name='post_picture' , default=None,on_delete=models.CASCADE)
+#     image = models.ImageField(upload_to='flat_images/')
+#     created = models.DateTimeField(auto_now_add=True, auto_now=False)
+#     updated = models.DateTimeField(auto_now_add=False, auto_now=True)

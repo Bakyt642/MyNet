@@ -17,7 +17,7 @@
 
   <p>
 
-    {{ post.body|linebreaks }}
+    {{ post.body|safe|linebreaks }}
  {% if post.author == user %}
      <a href="{% url 'post_edit' post.publish.year post.publish.month post.publish.day post.slug %}"> Update Post</a>
     <a href="{% url 'post_delete' post.publish.year post.publish.month post.publish.day post.slug %}"> Delete Post</a>

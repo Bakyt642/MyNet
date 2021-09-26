@@ -3,9 +3,9 @@
 {% block content %}
 <div id="detail_content">
 
-  <form  method="POST">
+  <form  method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-
+    {{ post_form.media }}
 
     <div class="postlist">   {{ post_form.category.label }} </div>
       <div class="postlist">      {{ post_form.category }}</div>
@@ -16,6 +16,7 @@
         <div class="postlist">   {{ post_form.body.label }} </div>
       <div class="postlist">      {{ post_form.body }}</div>
       <div class="postlist">   {{ post_form.body.error }} </div>
+
 
 
 
