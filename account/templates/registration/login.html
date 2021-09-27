@@ -3,7 +3,9 @@
 {% block title %}Log-in{% endblock %}
 
 {% block content %}
-<div id="detail_content">
+ <div class="row justify-content-start">
+   <div class="col-md-8">
+      <div class="card-body">
   <h1>Log-in</h1>
   {% if form.errors %}
     <p>
@@ -33,5 +35,7 @@
       </li>
     </ul>
   </div>
-</div>
+      </div>
+    </div>
+    </div>
 {% endblock %}

@@ -1,39 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}
-  {% if category %}{{ category.name }}{% else %}Posts{% endif %}
-{% endblock %}
+
 
 {% block content %}
-  <!-- Sidebar слева -->
-	<td valign="top" class="left-chapters">
-	<ul id="leftchapters">
-    <h3>Categories</h3>
-    <ul>
-      {% if category == 0 %}
-      <li class="selected"> All </li>
-      {% else %}
-     <li> <a href="{% url 'post_list' %}">All</a> </li>
-
-      {% endif %}
-      {% for c in categories %}
-        <li {% if category.slug == c.slug %}class="selected"{% endif %}>
-          <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-        </li>
-      {% endfor %}
-      <li class="share">
-		<p>Our Youtube Chanel</p>
-		<a class="share-yt" href="/" target="_blank" rel="nofollow"></a>
-		</li>
-    </ul>
-
-    </td>
-<!-- Конец Sidebar'а -->
-<td valign="top" class="content">
-	<!-- Хлебные крошки -->
-	{% block breadcrumbs %}
-	{% endblock %}
 
 
     <h1>{% if category %}{{ category.name }}{% else %}Posts{% endif %}</h1>
@@ -49,7 +19,9 @@
 
 
     {% endfor %}
+
 {% include "blog/pagination.html" with page=posts %}
+
 
 
 {% endblock %}

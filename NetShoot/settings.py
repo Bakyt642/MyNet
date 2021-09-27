@@ -31,6 +31,7 @@ ALLOWED_HOSTS = ['netshoot.kz', 'www.netshoot.kz', 'https://netshoot.kz', 'local
 # Application definition
 
 INSTALLED_APPS = [
+  # "crispy_bootstrap5",
     'ckeditor',
     'crispy_forms',
     'django_extensions',
@@ -155,5 +156,7 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '541488547966-7e1gtkvg9ki1cucbrcf8senfu57p3889.apps.googleusercontent.com' # Google Consumer Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'PIBgg-mdSfPIpvWsw2lGishd' # Google Consumer Secret
 CKEDITOR_UPLOAD_PATH = 'uploads/'
+
+# CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'

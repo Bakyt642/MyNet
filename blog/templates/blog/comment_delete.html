@@ -1,15 +1,21 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 
+<div class="row justify-content-start">
 
+<div class="col-md-8">
   <form action="" method="POST">
     {% csrf_token %}
-   {{ comments_form.as_p }}
+   {{ comments_form|crispy }}
     Do you really to delete comment ?
-
-    <button type="submit">Yes, delete</button>
+<div class="row">
+    <div class="col">
+    <p><input type="submit" value="Delete Comment"></p>
     <a href="/">No, keep comment</a>
+</div>
+    </div>
   </form>
-
+</div>
+</div>
 {% endblock %}

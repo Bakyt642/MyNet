@@ -1,7 +1,9 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div id="detail_content">
+<div class="row justify-content-start">
+
+<div class="col-md-8">
   <form action="" method="POST">
     {% csrf_token %}
     {{ post_form.media }}
@@ -17,5 +19,6 @@
 
     <input type="submit" value="Edit Post"></p>
   </form>
+</div>
 </div>
 {% endblock %}

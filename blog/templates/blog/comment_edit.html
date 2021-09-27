@@ -1,12 +1,15 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
+<div class="row justify-content-start">
 
+<div class="col-md-8">
   <form action="" method="POST">
     {% csrf_token %}
-    {{ comments_form.as_p }}
+    {{ comments_form|crispy}}
 
-    <button type="submit">Edit Comment</button>
+     <p><input type="submit" value="Edit Comment"></p>
   </form>
-
+</div>
+</div>
 {% endblock %}

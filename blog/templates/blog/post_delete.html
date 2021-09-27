@@ -1,10 +1,13 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="post_delete">
+<div class="row justify-content-start">
+
+<div class="col-md-8">
+
   <form action="" method="POST">
     {% csrf_token %}
-
+{{ post_form.media }}
            <div class="postlist">   {{ post_form.category.label }} </div>
       <div class="postlist">      {{ post_form.category }}</div>
       <div class="postlist">  {{ post_form.category.error }} </div>
@@ -12,7 +15,7 @@
       <div class="postlist">      {{ post_form.title }}</div>
       <div class="postlist">   {{ post_form.title.error }} </div>
         <div class="postlist">   {{ post_form.body.label }} </div>
-      <div class="postlist">      {{ post_form.body.media|safe }}</div>
+      <div class="postlist">      {{ post_form.body |safe }}</div>
       <div class="postlist">   {{ post_form.body.error }} </div>
 
 
@@ -20,5 +23,6 @@
     <input type="submit" value="Yes, Delete">
     <a href="/">No, keep post</a>
   </form>
+</div>
 </div>
 {% endblock %}
