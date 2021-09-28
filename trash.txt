@@ -1,9 +1,28 @@
 <link type="text/css" href="{% static 'css/styles.css' %}" rel="stylesheet" />
 boot version5.1
+{% if category_slug == 0 %}
+		<li class="selected">All Categories</li>
+{% else %}
+
+{% endif %}
+
+     {% if c.slug == category_slug %}
+                       <li class="selected">{{ c.name }}</li>
+                 {% else %}
+
+                 {% endif %}
 
 link type="text/css" href="{% static 'bootstap/css/bootstrap.min.css' %}" rel="stylesheet" />
 
-
+   {% if category == 0 %}
+         <li class="selected"> All </li>
+      {% else %}
+       {% endif %}
+       {% for c in categories %}
+        <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+          <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
+        </li>
+      {% endfor %}
 
 <header class="p-3 bg-dark text-white">
     <div class="container">

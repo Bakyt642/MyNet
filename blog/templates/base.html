@@ -1,4 +1,6 @@
 {% load static %}
+{% load custom_tag %}
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
 <head>
@@ -43,16 +45,23 @@
     <ul class="left-chapters">
 
 
+{% get_categories as categories %}
 
-      <li class="selected"> <a href="{% url 'post_list' %}">All</a> </li>
-
-
+{% if category_slug == 0 %}
+		<li class="selected">All Categories</li>
+{% else %}
+		<li><a href="{% url 'post_list' %}">All Categories</a></li>
+{% endif %}
 
 
       {% for c in categories %}
-        <li {% if category.slug == c.slug %}class="selected"{% endif %}>
-          <a href="{{ c.get_absolute_url }}">{{ c.name }}</a>
-        </li>
+
+                 {% if c.slug == category_slug %}
+                       <li class="selected">{{ c.name }}</li>
+                 {% else %}
+                       <li ><a href="{{ c.get_absolute_url }}">{{ c.name }}</a> </li>
+                 {% endif %}
+
       {% endfor %}
 
       <li class="share">

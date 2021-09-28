@@ -19,8 +19,10 @@ def post_list(request, category_slug=None):
     object_list = Post.published.all()
     paginator = Paginator(object_list, 3)  # 3 posts in each page
     page = request.GET.get('page')
+
     try:
         posts = paginator.page(page)
+
 
     except PageNotAnInteger:
     # If page is not an integer deliver the first page
@@ -33,6 +35,8 @@ def post_list(request, category_slug=None):
         category = get_object_or_404(Category, slug=category_slug)
         # posts = posts.filter(category=category)
         posts = object_list.filter(category=category)
+
+
     return render(request,
                   'blog/list.html',
                   {'category': category,
@@ -41,7 +45,8 @@ def post_list(request, category_slug=None):
                    'posts': posts})
 
 
-def post_detail(request, year, month, day, post):
+def post_detail(request, year, month, day, post,):
+
             # post =get_object_or_404(Post,slug=post_slug)
             post = get_object_or_404(Post, slug=post,
                                      status='published',publish__year=year,
@@ -51,6 +56,9 @@ def post_detail(request, year, month, day, post):
             new_comment = None
 
             comment_form = CommentForm(data=request.POST, )
+
+
+
             if request.method == 'POST':
                 # A comment was posted
 
