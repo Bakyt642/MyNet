@@ -25,13 +25,15 @@ SECRET_KEY = 'django-insecure-hd)c&j%e6omasl!l8oyirq=&!1&afwbr835oe0g9=(^g$upm2$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['netshoot.kz', 'www.netshoot.kz', 'https://netshoot.kz', 'localhost', '127.0.0.1']
-
+# ALLOWED_HOSTS = ['netshoot.kz', 'www.netshoot.kz', 'https://netshoot.kz', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['netshoot.kz','127.0.0.1']
 
 # Application definition
 
 INSTALLED_APPS = [
   # "crispy_bootstrap5",
+    "captcha",
+    'ckeditor_uploader',
     'ckeditor',
     'crispy_forms',
     'django_extensions',
@@ -123,7 +125,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
@@ -156,7 +158,48 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '541488547966-7e1gtkvg9ki1cucbrcf8senfu57p3889.apps.googleusercontent.com' # Google Consumer Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'PIBgg-mdSfPIpvWsw2lGishd' # Google Consumer Secret
 CKEDITOR_UPLOAD_PATH = 'uploads/'
-
+# CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 # CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+CKEDITOR_ALLOW_NONIMAGE_FILES = True
+CKEDITOR_RESTRICT_BY_USER = False
+CKEDITOR_IMAGE_BACKEND = "pillow"
+# CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+# CKEDITOR_JQUERY_URL = 'bootstap/js/bootstrap.bundle.min.js'
+
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'toolbar': 'full',
+#         'height': 300,
+#         'width': 300,
+#     },
+# }
+# CKEDITOR_CONFIGS = {
+#
+#         'zinnia-content': {
+#
+#             'toolbar': 'Zinnia',
+#             "extraPlugins":'codesnippet',
+#             "codeSnippet_theme": "monokai_sublime",
+#             'skin': 'moono-dark',
+#
+#             'toolbar_Zinnia': [
+#                 ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'],
+#                 ['Undo', 'Redo'],
+#                 ['Scayt'],
+#                 ['Link', 'Unlink', 'Anchor'],
+#                 ['Image', 'Table', 'HorizontalRule', 'SpecialChar'],
+#                 ['Source'],
+#                 ['Maximize', 'Resize'],
+#                 '/',
+#                 ['Bold', 'Italic', 'Underline', 'Strike',
+#                  'Subscript', 'Superscript', '-', 'RemoveFormat'],
+#                 ['NumberedList', 'BulletedList', '-',
+#                  'Outdent', 'Indent', '-', 'Blockquote'],
+#                 ['Styles', 'Format'],['CodeSnippet'],
+#                 '/',
+#                 ['Smiley', 'About', 'Preview', 'Templates' ],
+#             ],
+#         },
+#     }

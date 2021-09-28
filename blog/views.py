@@ -94,6 +94,7 @@ def post_add (request, ):
             return HttpResponseRedirect("/")
         else:
             messages.error(request, 'Error creating your post')
+            print(messages.get_messages(request))
 
     else:
         post_form = PostForm()
