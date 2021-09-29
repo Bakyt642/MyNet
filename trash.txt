@@ -4,6 +4,57 @@ boot version5.1
 		<li class="selected">All Categories</li>
 {% else %}
 
+
+
+
+
+{% if category_slug == 0 %}
+		<li class="selected">All Categories</li>
+{% else %}
+		<li class="selected"><a class="selected-a" href="{% url 'post_list' %}">All Categories</a></li>
+{% endif %}
+
+
+  {% for c in categories %}
+
+                 {% if c.slug == category_slug %}
+                       <li class="selected">{{ c.name }}</li>
+                 {% else %}
+                       <li class="selected"><a  class="selected-a"  href="{{ c.get_absolute_url }}">{{ c.name }}</a> </li>
+                 {% endif %}
+
+      {% endfor %}
+
+
+
+
+
+
+      <li {% if not category %}class="selected"{% endif %}>
+        <li class="selected"><a  href="{% url 'post_list' %}">All Categories</a></li>
+      </li>
+
+      {% for c in categories %}
+        <li {% if category.slug == c.slug %}class="selected"{% endif %}>
+           <li class="selected"><a   href="{{ c.get_absolute_url }}">{{ c.name }}</a> </li>
+        </li>
+      {% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% endif %}
 
      {% if c.slug == category_slug %}

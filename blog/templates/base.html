@@ -40,26 +40,21 @@
 
 
  <div class="row mt-5">
-<div class="col-md-4">
+<div class="col-md-4" id="sidebar">
        <h3>Categories</h3>
-    <ul class="left-chapters">
-
-
+    <ul >
+          {% if not category %}
+	        	<li class="selected">All Categories</li>
+            {% else %}
+                    <li class="selected"><a class="selected-a" href="{% url 'post_list' %}">All Categories</a></li>
+            {% endif %}
 {% get_categories as categories %}
+  {% for c in categories %}
 
-{% if category_slug == 0 %}
-		<li class="selected">All Categories</li>
-{% else %}
-		<li><a href="{% url 'post_list' %}">All Categories</a></li>
-{% endif %}
-
-
-      {% for c in categories %}
-
-                 {% if c.slug == category_slug %}
-                       <li class="selected">{{ c.name }}</li>
+                 {%  if category.slug == c.slug %}
+                       <li class="selected" >{{ c.name }}</li>
                  {% else %}
-                       <li ><a href="{{ c.get_absolute_url }}">{{ c.name }}</a> </li>
+                       <li ><a    href="{{ c.get_absolute_url }}">{{ c.name }}</a> </li>
                  {% endif %}
 
       {% endfor %}
