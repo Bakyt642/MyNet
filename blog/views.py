@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.postgres.search import SearchVector
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
@@ -8,7 +9,7 @@ from django.urls import reverse
 from django.utils.text import slugify
 
 # Create your views here.
-from .forms import CommentForm, PostForm
+from .forms import CommentForm, PostForm, SearchForm
 from .models import Category, Post, Comment
 from django.views.generic import CreateView, UpdateView,DetailView
 
@@ -210,4 +211,34 @@ def comment_delete(request, id):
 
     return render(request, 'blog/comment_delete.html', {'comments_form': comments_form,'comment':comment })
 
+# def post_search(request):
+#     # search_form = SearchForm()
+#     query = None
+#     results = []
+#     if 'query' in request.POST:
+#         # search_form = SearchForm(request.POST)
+#         if search_form.is_valid():
+#             # query = search_form.cleaned_data['query']
+#             results = Post.published.annotate(
+#             search=SearchVector('title', 'body'),
+#             ).filter(search=query)
+#     return render(request, 'blog/list.html',
+#             {'search_form': search_form,
+#             'query': query,
+#             'results': results})
+def post_search(request):
+ if request.method == "POST":
+     query = request.POST['query']
+     results = Post.published.annotate(
+                 search=SearchVector('title', 'body'),
+                 ).filter(search=query)
+     return render(request, 'blog/search.html',
+            {
+            'query': query,
+            'results': results
+            })
+ else:
+     return render(request, 'blog/search.html',
+                   {
 
+                   })

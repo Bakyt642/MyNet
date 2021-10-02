@@ -334,3 +334,45 @@ ul.messages li a.close {
 #sidebar  ul.left-chapters li.selected   {
        color: red;
  } */
+.content-editor-image-left {
+    float: left;
+    margin: 10px 20px 10px 0;
+}
+/*
+.search-botton {
+  background-color: var(--primary-color);
+  color: white;
+  font-weight: bold;
+  font-size: 1 em;
+  border: none;
+  margin-top: 1em;
+  margin-bottom: 5em;
+  border-radius: 5em;
+  display: inline-block;
+  padding: .8em 2em;
+  width: unset;
+  cursor: pointer;
+}  */
+  /* styling search bar */
+.search input[type=text]{
+    width:300px;
+    height:25px;
+    border-radius:25px;
+    border: none;
+}
+
+.search{
+    float:right;
+    margin:7px;
+}
+
+.search button{
+    background-color: #0074D9;
+    color: #f2f2f2;
+    float: right;
+    padding: 5px 10px;
+    margin-right: 16px;
+    font-size: 12px;
+    border: none;
+    cursor: pointer;
+}

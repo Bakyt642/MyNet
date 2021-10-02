@@ -4,6 +4,9 @@
 body {
   background: #F2F2F2;
   margin: 0;
+ /* font-family: 'Poppins'*/
+
+
 }
 nav {
 	background: #3F4137;
@@ -40,8 +43,14 @@ ul.mainmenu li a:hover {
 	color: #FDA83D;
 }
 
+#sidebar {
+ 	margin: 0;
+	background: #eee;
+	border-right: 1px solid #ccc;
+	height: 100%;
+	}
 
-.left-chapters  {
+#sidebar ul {
 	width: 230px;
 	min-height: 100%;
 	margin: 0;
@@ -49,30 +58,44 @@ ul.mainmenu li a:hover {
 	list-style: none;
 	font-size: 20px;
 }
-.left-chapters > li {
+
+#sidebar ul li {
 	margin: 30px 0 0 0;
 	color: #999;
 }
-.left-chapters > li.selected {color: #0059b2; }
-.left-chapters > li a {
-	color: #444;
+
+#sidebar ul li a {
+ 	color: #444;
+	text-decoration: none;
+
+}
+#sidebar ul li a:hover {
+ 	color: #0059b2;
+
+}
+#sidebar ul li.selected {
+   color: #0059b2;
+}
+
+#sidebar ul li.selected a {
+    	color: #444;
 	text-decoration: none;
 }
-.left-chapters > li a:hover { color: #CC0000; }
-.left-chapters > li.share {margin: 60px 0 0 0;}
-.left-chapters > li.share p {margin: 30px 0 30px 0;}
-.left-chapters > li.share a {
+#sidebar ul li a:hover { color: #CC0000; }
+#sidebar ul li.share {margin: 60px 0 0 0;}
+#sidebar ul li.share p {margin: 30px 0 30px 0;}
+#sidebar ul li.share a {
 	display: inline-block;
 	width: 40px;
 	height: 40px;
 	margin: 0 20px 0 0;
 }
-.left-chapters > li.share a.share-yt {
+#sidebar ul li.share a.share-yt {
 	width: 100%;
 	height: 30px;
 	background: url('../img/share_yt.png') no-repeat 0 0
 }
-.left-chapters > li.share a.share-yt:hover {
+#sidebar ul li.share a.share-yt:hover {
 	width: 100%;
 	height: 30px;
 	background: url('../img/share_yt.png') no-repeat 0 -30px
@@ -190,9 +213,9 @@ h1 {
     padding:0 0 0 30px;
 }
 
-#sidebar {
+#sidebar  {
     float:right;
-    width:30%;
+
     padding:10px;
     background:#efefef;
     height:100%;
@@ -304,3 +327,10 @@ ul.messages li a.close {
     width: 400px;
     height: 150px;
 }
+/*
+#sidebar  ul.left-chapters li.selected a   {
+       color: red;
+ }
+#sidebar  ul.left-chapters li.selected   {
+       color: red;
+ } */

@@ -1,3 +1,4 @@
+from django.contrib.postgres.search import SearchVector
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -82,7 +83,7 @@ class Comment(models.Model):
               ordering = ('created',)
 
         def __str__(self):
-              return f'Comment by {self.name} on {self.post}'
+              return f'Comment by {self.body} on {self.post}'
 
 # class PostImage(models.Model):
 #     flat= models.ForeignKey(Post, blank=True, null=True,related_name='post_picture' , default=None,on_delete=models.CASCADE)

@@ -8,6 +8,7 @@
     <title>{% block title %}NetShoot{% endblock %}</title>
     <link type="text/css" href="{% static 'bootstap/css/bootstrap.min.css' %}" rel="stylesheet" />
 	<link type="text/css" href="{% static 'css/styles.css' %}" rel="stylesheet" />
+
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 	<link rel="shortcut icon" href="{% static 'img/main.ico' %}" type="image/x-icon"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -41,9 +42,21 @@
 
  <div class="row mt-5">
 <div class="col-md-4" id="sidebar">
+<div class="search">
+ <form  method="POST" action="{% url 'post_search' %}" >
+     {% csrf_token %}
+      <div class="search">
+    <input name="query" class="searchTerm" type="search" placeholder="Search"  />
+<button type="submit">
+   <i class="fa fa-search" style="font-size: 18px;"></i>
+</button>
+   </div>
+
+ </form>
+</div>
        <h3>Categories</h3>
     <ul >
-          {% if not categorygit  %}
+          {% if not category %}
 	        	<li class="selected">All Categories</li>
             {% else %}
                     <li class="selected"><a class="selected-a" href="{% url 'post_list' %}">All Categories</a></li>

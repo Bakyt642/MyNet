@@ -26,3 +26,6 @@ class PostForm(forms.ModelForm):
         # self.fields['body'].widget.attrs.update({'class': 'comment'})
         # self.fields['title'].widget.attrs.update({'class': 'comment'})
         self.fields['category'].empty_label = "Select Category"
+
+class SearchForm(forms.Form):
+        query = forms.CharField()

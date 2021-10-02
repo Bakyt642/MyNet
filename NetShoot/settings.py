@@ -31,7 +31,8 @@ ALLOWED_HOSTS = ['netshoot.kz','127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
-  # "crispy_bootstrap5",
+    'django.contrib.postgres',
+    'easy_thumbnails',
     "captcha",
     'ckeditor_uploader',
     'ckeditor',
@@ -82,13 +83,20 @@ WSGI_APPLICATION = 'NetShoot.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+      'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'blog',
+        'USER': 'bacho',
+        'PASSWORD': 'bacho',
 }
-
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -158,48 +166,61 @@ SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '541488547966-7e1gtkvg9ki1cucbrcf8senfu57p3889.apps.googleusercontent.com' # Google Consumer Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'PIBgg-mdSfPIpvWsw2lGishd' # Google Consumer Secret
 CKEDITOR_UPLOAD_PATH = 'uploads/'
-# CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
+# CKEDITOR_BASEPATH = "/static/"
 # CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 CKEDITOR_ALLOW_NONIMAGE_FILES = True
 CKEDITOR_RESTRICT_BY_USER = False
 CKEDITOR_IMAGE_BACKEND = "pillow"
-# CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
-# CKEDITOR_JQUERY_URL = 'bootstap/js/bootstrap.bundle.min.js'
+CKEDITOR_THUMBNAIL_SIZE = (300, 300)
+# CKEDITOR_FORCE_JPEG_COMPRESSION = True
+# CKEDITOR_IMAGE_QUALITY = 95 #The image quality, on a scale from 1 (worst) to 95 (best). The default is 75. Values above 95 should be avoided; 100 disables portions of the JPEG compression algorithm and results in large files with hardly any gain in image quality.
+THUMBNAIL_DEBUG = True
 
+# CKEDITOR_JQUERY_URL = '//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js'
+# CKEDITOR_JQUERY_URL = 'bootstap/js/bootstrap.bundle.CKEDITOR_CONFIGS = {
+#         'default': {
+#             'toolbar': 'full',
+#              'extraPlugins': ','.join([
+#                 'uploadimage', # the upload image feature
+#                  'image',
+#                  'uploadwidget'
+#             ]),
+#
+#         },
+# }min.js'
+# CKEDITOR_CONFIGS = {
+#         'default': {
+#             'toolbar': 'full',
+#              'extraPlugins': ','.join([
+#                 'uploadimage', # the upload image feature
+#                  'image',
+#                  'uploadwidget'
+#             ]),
+#
+#         },
+# }
 # CKEDITOR_CONFIGS = {
 #     'default': {
 #         'toolbar': 'full',
-#         'height': 300,
-#         'width': 300,
+#          'extraPlugins': ','.join([
+#             'uploadimage', # the upload image feature
+#             # your extra plugins here
+#             'div',
+#             'autolink',
+#             'autoembed',
+#             'embedsemantic',
+#             'autogrow',
+#             # 'devtools',
+#             'widget',
+#             'lineutils',
+#             'clipboard',
+#             'dialog',
+#             'dialogui',
+#             'elementspath'
+#         ]),
+#
 #     },
 # }
-# CKEDITOR_CONFIGS = {
-#
-#         'zinnia-content': {
-#
-#             'toolbar': 'Zinnia',
-#             "extraPlugins":'codesnippet',
-#             "codeSnippet_theme": "monokai_sublime",
-#             'skin': 'moono-dark',
-#
-#             'toolbar_Zinnia': [
-#                 ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord'],
-#                 ['Undo', 'Redo'],
-#                 ['Scayt'],
-#                 ['Link', 'Unlink', 'Anchor'],
-#                 ['Image', 'Table', 'HorizontalRule', 'SpecialChar'],
-#                 ['Source'],
-#                 ['Maximize', 'Resize'],
-#                 '/',
-#                 ['Bold', 'Italic', 'Underline', 'Strike',
-#                  'Subscript', 'Superscript', '-', 'RemoveFormat'],
-#                 ['NumberedList', 'BulletedList', '-',
-#                  'Outdent', 'Indent', '-', 'Blockquote'],
-#                 ['Styles', 'Format'],['CodeSnippet'],
-#                 '/',
-#                 ['Smiley', 'About', 'Preview', 'Templates' ],
-#             ],
-#         },
-#     }

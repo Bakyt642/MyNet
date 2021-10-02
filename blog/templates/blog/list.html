@@ -1,12 +1,16 @@
 {% extends "base.html" %}
 {% load static %}
+{% load easy_thumbnails_tags %}
 
 
 
 {% block content %}
 
 
-    <h1>{% if category %}{{ category.name }}{% else %}Posts{% endif %}</h1>
+
+
+
+<h1>{% if category %}{{ category.name }}{% else %}Posts{% endif %}</h1>
     {% for post in posts %}
 
         <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
