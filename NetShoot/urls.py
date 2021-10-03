@@ -13,7 +13,9 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from blog import views
 from django.conf.urls import url
+from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 
 from django.urls import path, include
@@ -25,8 +27,14 @@ from django.conf.urls.static import static
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.cache import never_cache
 from ckeditor_uploader import views as ckeditor_views
-from ckeditor_uploader import views
+# from ckeditor_uploader import views
+from django.utils.translation import gettext_lazy as _
 urlpatterns = [
+    path('i18n/',include('django.conf.urls.i18n')),
+    path('selectlanguage', views.selectlanguage, name='selectlanguage'),
+]
+
+urlpatterns += i18n_patterns  (
     path('admin/', admin.site.urls),
     path('', include('blog.urls',)),
     path('account/', include('account.urls')),
@@ -37,6 +45,6 @@ urlpatterns = [
     # url(r'^browse/', never_cache(login_required(views.browse)), name='ckeditor_browse'),
     url(r'^ckeditor/upload/', login_required(ckeditor_views.upload), name='ckeditor_upload'),
     url(r'^ckeditor/browse/', never_cache(login_required(ckeditor_views.browse)), name='ckeditor_browse'),
-]
+)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

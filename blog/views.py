@@ -2,10 +2,13 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.postgres.search import SearchVector
+
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
+from django.utils import translation
+
 from django.utils.text import slugify
 
 # Create your views here.
@@ -242,3 +245,12 @@ def post_search(request):
                    {
 
                    })
+
+def selectlanguage(request):
+     if request.method == 'POST':
+         curr_lunguage = translation.get_language()
+         lasturl = request.META.get('HTTP_REFERER')
+         lang =request.POST['language']
+         translation.activate(lang)
+         request.session[translation.LANGUAGE_SESSION_KEY]=lang
+         return HttpResponseRedirect('/'+lang)

@@ -1,5 +1,6 @@
 {% load static %}
 {% load custom_tag %}
+{% load i18n %}
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/html">
@@ -19,16 +20,31 @@
  <div class="container">
      <nav >
         <div class="row justify-content-between ">
+              <form action="{% url 'selectlanguage' %}" method="post">{% csrf_token %}
+                <input name="next" type="hidden" value="{{ redirect_to }}">
+                <select name="language">
+                    {% get_current_language as LANGUAGE_CODE %}
+                    {% get_available_languages as LANGUAGES %}
+                    {% get_language_info_list for LANGUAGES as languages %}
+                    {% for language in languages %}
+                        <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                            {{ language.name_local }} ({{ language.code }})
+                        </option>
+                    {% endfor %}
+                </select>
+                <input type="submit" value="Go">
+            </form>
         <ul id="mainmenu" class="mainmenu">
+
              <li class="logo"> <a href="/" ><div class="logo"></div></a></li>
                        {% if request.user.is_authenticated %}
-                    <li ><a href="{% url 'post_add' %}" >Add Post</a></li>
-                    <li ><a href="{% url 'dashboard' %}" > My dashboard</a></li>
-              <li class="last">  Hello {{ request.user.first_name }},
-                         <a href="{% url 'logout' %}" >Logout</a></li>
+                    <li ><a href="{% url 'post_add' %}" >{% trans "Add Post" %}</a></li>
+                    <li ><a href="{% url 'dashboard' %}" >{% trans  "My dashboard" %}</a></li>
+              <li class="last"> {% trans  "Hello" %} {{ request.user.first_name }},
+                         <a href="{% url 'logout' %}" >{% trans "Logout" %} </a></li>
 
                         {% else %}
-                                <li class="last"><a href="{% url 'login' %}" >Log-in</a> | <a href="{% url 'register' %}" > Register</a></li>
+                                <li class="last"><a href="{% url 'login' %}" >{% trans "Log-in" %} </a> | <a href="{% url 'register' %}" > Register</a></li>
                        {% endif %}
 
 
@@ -54,12 +70,12 @@
 
  </form>
 </div>
-       <h3>Categories</h3>
+       <h3>{% trans "Categories" %} </h3>
     <ul >
           {% if not category %}
-	        	<li class="selected">All Categories</li>
+	        	<li class="selected">{% trans "All Categories" %}</li>
             {% else %}
-                    <li class="selected"><a class="selected-a" href="{% url 'post_list' %}">All Categories</a></li>
+                    <li class="selected"><a class="selected-a" href="{% url 'post_list' %}">{% trans "All Categories" %}</a></li>
             {% endif %}
 {% get_categories as categories %}
   {% for c in categories %}
@@ -73,7 +89,7 @@
       {% endfor %}
 
       <li class="share">
-		<p>Our Youtube Chanel</p>
+		<p>{% trans "Our Youtube Chanel" %}</p>
 		<a class="share-yt" href="/" target="_blank" rel="nofollow"></a>
 		</li>
   </ul>
