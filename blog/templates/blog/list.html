@@ -16,6 +16,7 @@
         <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
         <br>
     <p class="date">
+        <img class="img-profile"  width="64" height="64" src="{{ user.profile.photo.url }}">
       Published {{ post.publish }} by {{ post.author }}
     </p>
 

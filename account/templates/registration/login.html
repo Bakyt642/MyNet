@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load i18n %}
 {% block title %}Log-in{% endblock %}
 
 {% block content %}
@@ -8,12 +8,9 @@
       <div class="card-body">
   <h1>{% trans "Log-in" %}</h1>
   {% if form.errors %}
-    <p>{% trans
-      "Your username and password didn't match.
-      Please try again." %}
-    </p>
+    <p>{% trans "Your username and password didn't match. Please try again." %}</p>
   {% else %}
-    <p>{% trans "Please, use the following form to log-in. If you don't have an account" %} <a href="{% url "register" %}">register here</a></p>
+    <p>{% trans "Please, use the following form to log-in. If you don't have an account" %} <a href="{% url 'register' %}">register here</a></p>
   {% endif %}
   <div class="login-form">
     <form action="{% url 'login' %}" method="post">

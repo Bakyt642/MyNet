@@ -5,7 +5,7 @@ from django.contrib.postgres.search import SearchVector
 
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils import translation
 
@@ -55,6 +55,8 @@ def post_detail(request, year, month, day, post,):
             post = get_object_or_404(Post, slug=post,
                                      status='published',publish__year=year,
                                      publish__month=month,publish__day=day)
+            post.visit_count = post.visit_count + 1
+            post.save()
             # List of active comments for this post
             comments = post.comments.filter(active=True)
             new_comment = None
@@ -272,3 +274,84 @@ def selectlanguage(request):
          translation.activate(lang)
          request.session[translation.LANGUAGE_SESSION_KEY]=lang
          return HttpResponseRedirect('/'+lang)
+
+#
+# def post(self, request, pk, *args, **kwargs):
+#         post = Post.objects.get(pk=pk)
+#
+#         is_dislike = False
+#
+#         for dislike in post.dislikes.all():
+#             if dislike == request.user:
+#                 is_dislike = True
+#                 break
+#
+#         if is_dislike:
+#             post.dislikes.remove(request.user)
+#
+#         is_like = False
+#
+#         for like in post.likes.all():
+#             if like == request.user:
+#                 is_like = True
+#                 break
+#
+#         if not is_like:
+#             post.likes.add(request.user)
+#
+#         if is_like:
+#             post.likes.remove(request.user)
+#
+#         next = request.POST.get('next', '/')
+#         return HttpResponseRedirect(next)
+#
+# class AddDislike(re):
+#     def post(self, request, pk, *args, **kwargs):
+#         post = Post.objects.get(pk=pk)
+#
+#         is_like = False
+#
+#         for like in post.likes.all():
+#             if like == request.user:
+#                 is_like = True
+#                 break
+#
+#         if is_like:
+#             post.likes.remove(request.user)
+#
+#         is_dislike = False
+#
+#         for dislike in post.dislikes.all():
+#             if dislike == request.user:
+#                 is_dislike = True
+#                 break
+#
+#         if not is_dislike:
+#             post.dislikes.add(request.user)
+#
+#         if is_dislike:
+#             post.dislikes.remove(request.user)
+#
+#         next = request.POST.get('next', '/')
+#         return HttpResponseRedirect(next)
+
+# handling reply, reply view
+def reply_page(request):
+    if request.method == "POST":
+
+        form = CommentForm(request.POST)
+
+        if form.is_valid():
+            post_id = request.POST.get('post_id')  # from hidden input
+            parent_id = request.POST.get('parent')  # from hidden input
+            post_url = request.POST.get('post_url')  # from hidden input
+
+            reply = form.save(commit=False)
+
+            reply.post = Post(id=post_id)
+            reply.parent = Comment(id=parent_id)
+            reply.save()
+
+            return redirect(post_url + '#' + str(reply.id))
+
+    return redirect("/")

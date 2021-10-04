@@ -95,7 +95,7 @@ WSGI_APPLICATION = 'NetShoot.wsgi.application'
 DATABASES = {
       'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'blog',
+        'NAME': 'postdb',
         'USER': 'bacho',
         'PASSWORD': 'bacho',
 }

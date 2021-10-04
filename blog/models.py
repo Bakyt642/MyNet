@@ -32,6 +32,13 @@ class Post (models.Model):
         ('draft', 'Draft'),
         ('published', 'Published'),
     )
+    # likes = models.ManyToManyField(User, blank=True, related_name='likes')
+    # dislikes = models.ManyToManyField(User, blank=True, related_name='dislikes')
+    likes = models.ManyToManyField(User,related_name='post_liked',
+                                        blank=True)
+    total_likes = models.PositiveIntegerField(db_index=True,
+                                              default=0)
+    visit_count = models.IntegerField(default=0)
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250,
                             unique_for_date='publish')
@@ -65,12 +72,18 @@ class Post (models.Model):
     # def get_absolute_url(self):
     #     return reverse('post_detail',
     #                    kwargs={'post_slug': self.slug})
+    def get_comments(self):
+        return self.comments.filter(parent=None).filter(active=True)
+
+    def number_of_likes(self):
+        return self.likes.count()
 
 
 class Comment(models.Model):
+
         post = models.ForeignKey(Post,on_delete=models.CASCADE, related_name='comments')
         email = models.EmailField()
-        # reply = models.ForeignKey('self', null=True, related_name='replies',on_delete=models.CASCADE)
+        parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE)
         body = models.TextField()
         created = models.DateTimeField(auto_now_add=True)
         updated = models.DateTimeField(auto_now=True)
@@ -86,8 +99,8 @@ class Comment(models.Model):
         def __str__(self):
               return f'Comment by {self.body} on {self.post}'
 
-        def children(self):
-            return Comment.objects.filter(reply=self)
+        def get_comments(self):
+            return Comment.objects.filter(parent=self).filter(active=True)
 
 
 # class PostImage(models.Model):

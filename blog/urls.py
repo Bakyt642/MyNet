@@ -12,5 +12,6 @@ urlpatterns = [
     path('delete/<int:year>/<int:month>/<int:day>/<slug:post>/', views.post_delete, name='post_delete'),
     path('comment/edit/<int:id>/', views.comment_edit, name='comment_edit'),
     path('comment/delete/<int:id>/', views.comment_delete, name='comment_delete'),
+    path('comment/reply/', views.reply_page, name="reply"),
 
 ]

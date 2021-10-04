@@ -1,5 +1,53 @@
 <link type="text/css" href="{% static 'css/styles.css' %}" rel="stylesheet" />
 boot version5.1
+
+
+
+
+
+
+
+
+
+
+
+{% for comment in comments %}
+    <div class="comment">
+      <p class="info">
+           {{ comment.author }} commented on
+          {{ comment.created }}
+      </p>
+      {{ comment.body|linebreaks }}
+        {% if comment.author == user %}
+        <a href="{% url 'comment_edit' comment.id %}"> Update Comment</a>
+        <a href="{% url 'comment_delete' comment.id %}"> Delete Comment</a>
+         {% endif %}
+    </div>
+      {% empty %}
+    <p>There are no comments yet.</p>
+{% endfor %}
+{% if new_comment %}
+        <h2>Your comment has been added.</h2>
+{% else %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {% if category_slug == 0 %}
 		<li class="selected">All Categories</li>
 {% else %}

@@ -17,7 +17,7 @@
       </a>
     </div>
   <p class="date" >
-    Published {{ post.publish }} by {{ post.author }}
+    Published {{ post.publish }} by {{ post.author }}, {{ post.visit_count }} views
   </p>
     {{ post.body|safe|linebreaks }}
     </div>
@@ -32,24 +32,15 @@
          {{ total_comments }} comment{{ total_comments|pluralize }}
     </h2>
 {% endwith %}
-{% for comment in comments %}
-    <div class="comment">
-      <p class="info">
-           {{ comment.author }} commented on
-          {{ comment.created }}
-      </p>
-      {{ comment.body|linebreaks }}
-        {% if comment.author == user %}
-        <a href="{% url 'comment_edit' comment.id %}"> Update Comment</a>
-        <a href="{% url 'comment_delete' comment.id %}"> Delete Comment</a>
-         {% endif %}
-    </div>
-      {% empty %}
-    <p>There are no comments yet.</p>
-{% endfor %}
-{% if new_comment %}
-        <h2>Your comment has been added.</h2>
-{% else %}
+
+{% if not post.comments.all %}
+            No comments yet
+{% endif %}
+        {% for comment in post.get_comments %}
+            {% include 'blog/comment.html' with comment=comment %}
+        {% endfor %}
+
+    <hr>
 <h2>Add a new comment</h2>
 <div class="row">
     <div class="col-6">
@@ -67,7 +58,7 @@
 
     </div>
 </div>
-{% endif %}
+
 </div>
 </div>
 
