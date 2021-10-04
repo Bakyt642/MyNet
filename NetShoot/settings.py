@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['netshoot.kz','127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.postgres',
     'easy_thumbnails',
     "captcha",
@@ -134,11 +135,15 @@ USE_TZ = True
 
 
 
-LANGUAGES = [
-  ('en', _('English')),
-  ('ru', _('Russian')),
-  ]
-
+# LANGUAGES = [
+#   ('en', _('English')),
+#   ('ru', _('Russian')),
+#   ]
+gettext = lambda s: s
+LANGUAGES = (
+    ('en', gettext('English')),
+    ('ru', gettext('Russian')),
+)
 #LANGUAGE_CODE = 'en-us'
 
 LOCALE_PATHS = (

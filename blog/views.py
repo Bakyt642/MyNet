@@ -69,6 +69,24 @@ def post_detail(request, year, month, day, post,):
                 # data_prepopulated = {'name': comment.name, 'email': comment.email, 'body': comment.body}
                 # comments_form = CommentForm(initial=data_prepopulated)
                 if comment_form.is_valid() and  request.user.is_authenticated:
+                        reply_obj = None
+                        # get reply comment id from hidden input
+                        try:
+                            # id integer e.g. 15
+                            reply_id = int(request.POST.get('reply_id'))
+                        except:
+                            reply_id = None
+                        # if reply_id has been submitted get reply_obj id
+                        if reply_id:
+                            reply_obj = Comment.objects.get(id=reply_id)
+                            # if parent object exist
+                            if reply_obj:
+                                # create replay comment object
+                                replay_comment = comment_form.save(commit=False)
+                                # assign parent_obj to replay comment
+                                replay_comment.parent = reply_obj
+
+
                         # Create Comment object but don't save to database yet
                         new_comment = comment_form.save(commit=False)
                         new_comment.author=request.user

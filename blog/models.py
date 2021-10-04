@@ -70,6 +70,7 @@ class Post (models.Model):
 class Comment(models.Model):
         post = models.ForeignKey(Post,on_delete=models.CASCADE, related_name='comments')
         email = models.EmailField()
+        # reply = models.ForeignKey('self', null=True, related_name='replies',on_delete=models.CASCADE)
         body = models.TextField()
         created = models.DateTimeField(auto_now_add=True)
         updated = models.DateTimeField(auto_now=True)
@@ -80,10 +81,14 @@ class Comment(models.Model):
 
 
         class Meta:
-              ordering = ('created',)
+              ordering = ('-created',)
 
         def __str__(self):
               return f'Comment by {self.body} on {self.post}'
+
+        def children(self):
+            return Comment.objects.filter(reply=self)
+
 
 # class PostImage(models.Model):
 #     flat= models.ForeignKey(Post, blank=True, null=True,related_name='post_picture' , default=None,on_delete=models.CASCADE)
