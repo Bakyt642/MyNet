@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
+from taggit.managers import TaggableManager
 # Create your models here.
 class PublishedManager(models.Manager):
     def get_queryset(self):
@@ -32,12 +33,13 @@ class Post (models.Model):
         ('draft', 'Draft'),
         ('published', 'Published'),
     )
+
     # likes = models.ManyToManyField(User, blank=True, related_name='likes')
     # dislikes = models.ManyToManyField(User, blank=True, related_name='dislikes')
-    likes = models.ManyToManyField(User,related_name='post_liked',
-                                        blank=True)
-    total_likes = models.PositiveIntegerField(db_index=True,
-                                              default=0)
+    # likes = models.ManyToManyField(User,related_name='post_liked',
+    #                                     blank=True)
+    # total_likes = models.PositiveIntegerField(db_index=True,
+    #                                           default=0)
     visit_count = models.IntegerField(default=0)
     title = models.CharField(max_length=250)
     slug = models.SlugField(max_length=250,
@@ -54,6 +56,7 @@ class Post (models.Model):
                               default='published')
     objects = models.Manager()  # The default manager.
     published = PublishedManager()  # Our custom manager.
+    tags = TaggableManager()
     category = models.ForeignKey(Category,
                                  related_name='blog_category',
                                  on_delete=models.CASCADE)
@@ -83,7 +86,7 @@ class Comment(models.Model):
 
         post = models.ForeignKey(Post,on_delete=models.CASCADE, related_name='comments')
         email = models.EmailField()
-        parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE)
+        # parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.CASCADE)
         body = models.TextField()
         created = models.DateTimeField(auto_now_add=True)
         updated = models.DateTimeField(auto_now=True)

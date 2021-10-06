@@ -8,7 +8,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils import translation
-
+from taggit.models import Tag
 from django.utils.text import slugify
 
 # Create your views here.
@@ -16,11 +16,15 @@ from .forms import CommentForm, PostForm, SearchForm
 from .models import Category, Post, Comment
 from django.views.generic import CreateView, UpdateView,DetailView
 
-def post_list(request, category_slug=None):
+def post_list(request, category_slug=None,tag_slug=None):
     category = None
     categories = Category.objects.all()
     # posts = Post.objects.filter(status='published')
     object_list = Post.published.all()
+    tag = None
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        object_list = object_list.filter(tags__in=[tag])
     paginator = Paginator(object_list, 3)  # 3 posts in each page
     page = request.GET.get('page')
 
@@ -46,7 +50,8 @@ def post_list(request, category_slug=None):
                   {'category': category,
                    'page':page,
                    'categories': categories,
-                   'posts': posts})
+                   'posts': posts,
+                   'tag': tag})
 
 
 def post_detail(request, year, month, day, post,):
@@ -73,20 +78,20 @@ def post_detail(request, year, month, day, post,):
                 if comment_form.is_valid() and  request.user.is_authenticated:
                         reply_obj = None
                         # get reply comment id from hidden input
-                        try:
-                            # id integer e.g. 15
-                            reply_id = int(request.POST.get('reply_id'))
-                        except:
-                            reply_id = None
-                        # if reply_id has been submitted get reply_obj id
-                        if reply_id:
-                            reply_obj = Comment.objects.get(id=reply_id)
-                            # if parent object exist
-                            if reply_obj:
-                                # create replay comment object
-                                replay_comment = comment_form.save(commit=False)
-                                # assign parent_obj to replay comment
-                                replay_comment.parent = reply_obj
+                        # try:
+                        #     # id integer e.g. 15
+                        #     reply_id = int(request.POST.get('reply_id'))
+                        # except:
+                        #     reply_id = None
+                        # # if reply_id has been submitted get reply_obj id
+                        # if reply_id:
+                        #     reply_obj = Comment.objects.get(id=reply_id)
+                        #     # if parent object exist
+                        #     if reply_obj:
+                        #         # create replay comment object
+                        #         replay_comment = comment_form.save(commit=False)
+                        #         # assign parent_obj to replay comment
+                        #         replay_comment.parent = reply_obj
 
 
                         # Create Comment object but don't save to database yet
@@ -96,6 +101,7 @@ def post_detail(request, year, month, day, post,):
                         new_comment.post = post
                         # Save the comment to the database
                         new_comment.save()
+                        messages.success(request, 'Your Comment added successfully ')
                 else:
                     messages.error(request, 'Error creating your comment')
                     return HttpResponseRedirect("/")
@@ -115,13 +121,17 @@ def post_add (request, ):
         post_form = PostForm(data=request.POST)
 
         if post_form.is_valid():
+
             # create a post object but don't save to database yet
             new_post = post_form.save(commit=False)
             # assign the current slug and user to the post
             new_post.author = request.user
             new_post.slug = slugify(new_post.title)
+
+
             # save post to database
             new_post.save()
+            post_form.save_m2m()
             messages.success(request, 'You post will be published after submitted by moderator')
             return HttpResponseRedirect("/")
         else:
@@ -336,22 +346,22 @@ def selectlanguage(request):
 #         return HttpResponseRedirect(next)
 
 # handling reply, reply view
-def reply_page(request):
-    if request.method == "POST":
-
-        form = CommentForm(request.POST)
-
-        if form.is_valid():
-            post_id = request.POST.get('post_id')  # from hidden input
-            parent_id = request.POST.get('parent')  # from hidden input
-            post_url = request.POST.get('post_url')  # from hidden input
-
-            reply = form.save(commit=False)
-
-            reply.post = Post(id=post_id)
-            reply.parent = Comment(id=parent_id)
-            reply.save()
-
-            return redirect(post_url + '#' + str(reply.id))
-
-    return redirect("/")
+# def reply_page(request):
+#     if request.method == "POST":
+#
+#         form = CommentForm(request.POST)
+#
+#         if form.is_valid():
+#             post_id = request.POST.get('post_id')  # from hidden input
+#             parent_id = request.POST.get('reply')  # from hidden input
+#             post_url = request.POST.get('post_url')  # from hidden input
+#
+#             reply = form.save(commit=False)
+#
+#             reply.post = Post(id=post_id)
+#             reply.parent = Comment(id=parent_id)
+#             reply.save()
+#
+#             return redirect(post_url + '#' + str(reply.id))
+#
+#     return redirect("/")

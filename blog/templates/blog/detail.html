@@ -2,12 +2,12 @@
 {% load static %}
 {% load thumbnail %}
 {% load crispy_forms_tags %}
-{% block title %}{{ post.title }}{% endblock %}
+{% load i18n %}
 
+{% block title %}{{ post.title }}{% endblock %}
 {% block content %}
 
 <div class="row justify-content-start">
-
 <div class="col-md-8">
     <div class="detail_p">
     <h1>{{ post.title }}</h1>
@@ -17,7 +17,7 @@
       </a>
     </div>
   <p class="date" >
-    Published {{ post.publish }} by {{ post.author }}, {{ post.visit_count }} views
+    {% trans "Published" %} {{ post.publish }} {% trans "by" %} {{ post.author }}, {{ post.visit_count }} {% trans "views" %}
   </p>
     {{ post.body|safe|linebreaks }}
     </div>
@@ -25,42 +25,37 @@
      <a href="{% url 'post_edit' post.publish.year post.publish.month post.publish.day post.slug %}"> Update Post</a>
     <a href="{% url 'post_delete' post.publish.year post.publish.month post.publish.day post.slug %}"> Delete Post</a>
  {% endif %}
-
-
 {% with comments.count as total_comments %}
     <h2>
-         {{ total_comments }} comment{{ total_comments|pluralize }}
+         {{ total_comments }} {% trans "comment" %}{{ total_comments|pluralize }}
     </h2>
 {% endwith %}
+{% for comment in comments %}
+    <div class="comment">
+      <p class="info">
+           {{ comment.author }} {% trans "commented on" %}
+          {{ comment.created }}
+      </p>
+      {{ comment.body|linebreaks }}
+        {% if comment.author == user %}
+        <a href="{% url 'comment_edit' comment.id %}"> {% trans "Update Comment" %}</a>
+        <a href="{% url 'comment_delete' comment.id %}"> {% trans "Delete Comment" %}</a>
+         {% endif %}
+    </div>
+      {% empty %}
+    <p>{% trans "There are no comments yet." %}</p>
+{% endfor %}
 
-{% if not post.comments.all %}
-            No comments yet
-{% endif %}
-        {% for comment in post.get_comments %}
-            {% include 'blog/comment.html' with comment=comment %}
-        {% endfor %}
-
-    <hr>
-<h2>Add a new comment</h2>
+<h2>{% trans "Add a new comment" %}</h2>
 <div class="row">
     <div class="col-6">
             <form class="comment-form" method="post">
                {{ comment_form|crispy }}
-
             {% csrf_token %}
-
-            <p><input type="submit" value="Add comment"></p>
-
-
+            <p><input type="submit" value={% trans "Add comment" %}></p>
         </form>
-
-
-
     </div>
 </div>
-
 </div>
 </div>
-
-
 {% endblock %}

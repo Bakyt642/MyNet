@@ -1,3 +1,5 @@
+
+
 :root {
   --primary-color: #3F4137;
 }
@@ -42,12 +44,16 @@ ul.mainmenu li a {
 ul.mainmenu li a:hover {
 	color: #FDA83D;
 }
+ul.mainmenu li.language {
+    margin: -20px 0 0 20px;
 
+}
 #sidebar {
  	margin: 0;
 	background: #eee;
 	border-right: 1px solid #ccc;
 	height: 100%;
+
 	}
 
 #sidebar ul {
@@ -154,8 +160,9 @@ display:none;
 p.date {
     color:#ccc;
     font-family: georgia, serif;
-    font-size: 12px;
+    font-size: 20px;
     font-style: italic;
+
 }
 
 /* social-auth */
@@ -198,7 +205,7 @@ p.date {
 }
 /* pagination */
 .pagination {
-    margin:40px 0;
+    margin:40px 0 0 10px;
     font-weight:bold;
 }
 
@@ -210,7 +217,8 @@ h1 {
 #content {
     float:left;
     width:60%;
-    padding:0 0 0 30px;
+
+
 }
 
 #sidebar  {
@@ -278,12 +286,12 @@ display:none;
 
 /* messages */
 ul.messages {
-    margin:0;
+    margin:0 0 30px 80px;
     padding:0;
     list-style-type:
     none;
     text-align: center;
-    float:top;
+    float:top-center;
     border-radius: 5em;
 }
 ul.messages li.success,
@@ -337,43 +345,5 @@ ul.messages li a.close {
 .content-editor-image-left {
     float: left;
     margin: 10px 20px 10px 0;
-}
-/*
-.search-botton {
-  background-color: var(--primary-color);
-  color: white;
-  font-weight: bold;
-  font-size: 1 em;
-  border: none;
-  margin-top: 1em;
-  margin-bottom: 5em;
-  border-radius: 5em;
-  display: inline-block;
-  padding: .8em 2em;
-  width: unset;
-  cursor: pointer;
-}  */
-  /* styling search bar */
-.search input[type=text]{
-    width:300px;
-    height:25px;
-    border-radius:25px;
-    border: none;
-}
-
-.search{
-    float:right;
-    margin:7px;
-}
-
-.search button{
-    background-color: #0074D9;
-    color: #f2f2f2;
-    float: right;
-    padding: 5px 10px;
-    margin-right: 16px;
-    font-size: 12px;
-    border: none;
-    cursor: pointer;
 }
 

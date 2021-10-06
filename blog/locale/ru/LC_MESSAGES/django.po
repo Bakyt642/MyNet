@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-03 20:40+0600\n"
+"POT-Creation-Date: 2021-10-06 13:06+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,34 +19,99 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
 "%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
 "%100>=11 && n%100<=14)? 2 : 3);\n"
-#: blog/templates/base.html:41
+
+#: blog/templates/base.html:35
+msgid "Go"
+msgstr ""
+
+#: blog/templates/base.html:38 blog/templates/header.html:17
 msgid "Add Post"
 msgstr "Добавить статью"
 
-#: blog/templates/base.html:42
+#: blog/templates/base.html:39 blog/templates/header.html:23
 msgid "My dashboard"
 msgstr "Мой профиль"
 
-#: blog/templates/base.html:43
+#: blog/templates/base.html:40
 msgid "Hello"
 msgstr "Привет"
 
-#: blog/templates/base.html:44
+#: blog/templates/base.html:41 blog/templates/header.html:32
 msgid "Logout"
 msgstr "Выйти"
 
-#: blog/templates/base.html:47
+#: blog/templates/base.html:43
 msgid "Log-in"
 msgstr "Зайти"
 
-#: blog/templates/base.html:73
+#: blog/templates/base.html:43
+msgid "Register"
+msgstr "Регистрация"
+
+#: blog/templates/base.html:56
 msgid "Categories"
 msgstr "Категории"
 
-#: blog/templates/base.html:76 blog/templates/base.html:78
+#: blog/templates/base.html:59 blog/templates/base.html:61
 msgid "All Categories"
 msgstr "Все категории"
 
-#: blog/templates/base.html:92
+#: blog/templates/base.html:72
 msgid "Our Youtube Chanel"
 msgstr "Наш ютюб канал"
+
+#: blog/templates/blog/detail.html:20 blog/templates/blog/list.html:27
+msgid "Published"
+msgstr "Опубликован"
+
+#: blog/templates/blog/detail.html:20 blog/templates/blog/list.html:27
+msgid "by"
+msgstr "автором"
+
+#: blog/templates/blog/detail.html:20
+msgid "views"
+msgstr "просмотров"
+
+#: blog/templates/blog/detail.html:30
+msgid "comment"
+msgstr "коментария"
+
+#: blog/templates/blog/detail.html:36
+msgid "commented on"
+msgstr "комментировал"
+
+#: blog/templates/blog/detail.html:41
+msgid "Update Comment"
+msgstr "Обновить Коментарий"
+
+#: blog/templates/blog/detail.html:42
+msgid "Delete Comment"
+msgstr "Удалить Комментарии"
+
+#: blog/templates/blog/detail.html:46
+msgid "There are no comments yet."
+msgstr "Пока нету комментариев"
+
+#: blog/templates/blog/detail.html:49
+msgid "Add a new comment"
+msgstr "Добавить комментарии"
+
+#: blog/templates/blog/detail.html:55
+#, fuzzy
+#| msgid "Add Post"
+msgid "Add comment"
+msgstr "Добавить статью"
+
+#: blog/templates/blog/list.html:8
+#, fuzzy
+#| msgid "Add Post"
+msgid "Posts"
+msgstr "Добавить статью"
+
+#: blog/templates/blog/list.html:11
+msgid "Posts tagged with"
+msgstr ""
+
+#: blog/templates/blog/list.html:16
+msgid "Tags"
+msgstr "Таги"

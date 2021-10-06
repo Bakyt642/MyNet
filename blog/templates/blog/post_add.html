@@ -4,27 +4,15 @@
 
 {% block content %}
 <div class="row justify-content-start">
-
 <div class="col-md-8">
 <div id="detail_content">
-
   <form  method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     {{ post_form.media }}
-
-
       <div class="postlist">      {{ post_form.category|as_crispy_field }}</div>
-
-
       <div class="postlist">      {{ post_form.title|as_crispy_field }}</div>
-
-
       <div class="postlist">      {{ post_form.body|as_crispy_field }}</div>
-
-
-
-
-
+      <div class="postlist">      {{ post_form.tags|as_crispy_field }}</div>
     <input type="submit" value="Add Post">
   </form>
 </div>
