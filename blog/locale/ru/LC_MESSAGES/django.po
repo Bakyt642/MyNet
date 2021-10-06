@@ -110,7 +110,7 @@ msgstr "Добавить статью"
 
 #: blog/templates/blog/list.html:11
 msgid "Posts tagged with"
-msgstr ""
+msgstr "Cтатьи с метками"
 
 #: blog/templates/blog/list.html:16
 msgid "Tags"
