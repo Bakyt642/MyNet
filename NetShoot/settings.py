@@ -101,14 +101,14 @@ WSGI_APPLICATION = 'NetShoot.wsgi.application'
 # }
 DATABASES = {
       'default': {
-        # 'ENGINE': 'django.db.backends.postgresql',
-        # 'NAME': 'blogdb',
-        # 'USER': 'bacho',
-        # 'PASSWORD': 'bacho',
-          'ENGINE': 'django.db.backends.sqlite3',
-          'NAME': BASE_DIR / 'db.sqlite3',
+
+        #   'ENGINE': 'django.db.backends.sqlite3',
+        #   'NAME': BASE_DIR / 'db.sqlite3',
 }
 }
+import dj_database_url
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
