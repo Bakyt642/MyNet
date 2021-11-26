@@ -28,7 +28,7 @@ SECRET_KEY = 'django-insecure-hd)c&j%e6omasl!l8oyirq=&!1&afwbr835oe0g9=(^g$upm2$
 DEBUG = True
 
 # ALLOWED_HOSTS = ['netshoot.kz', 'www.netshoot.kz', 'https://netshoot.kz', 'localhost', '127.0.0.1']
-ALLOWED_HOSTS = ['netshoot.kz','127.0.0.1']
+ALLOWED_HOSTS = ['netshoot.kz','127.0.0.1', 'sarmanovbakyt-blog.herokuapp.com']
 
 # Application definition
 
