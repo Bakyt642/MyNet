@@ -1,6 +1,6 @@
 from captcha.fields import CaptchaField
 from django import forms
-
+from tagging_autocomplete.widgets import TagAutocomplete
 from .models import Comment, Post
 
 

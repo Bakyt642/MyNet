@@ -33,10 +33,11 @@ ALLOWED_HOSTS = ['netshoot.kz','127.0.0.1']
 # Application definition
 
 INSTALLED_APPS = [
+     'debug_toolbar',
     'taggit',
     'modeltranslation',
     'django.contrib.postgres',
-    'easy_thumbnails',
+    # 'taggit_autosuggest',
     "captcha",
     'ckeditor_uploader',
     'ckeditor',
@@ -51,6 +52,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'jquery',
 ]
 
 MIDDLEWARE = [
@@ -62,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'NetShoot.urls'
@@ -97,7 +100,7 @@ WSGI_APPLICATION = 'NetShoot.wsgi.application'
 DATABASES = {
       'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postdb',
+        'NAME': 'blogdb',
         'USER': 'bacho',
         'PASSWORD': 'bacho',
 }
@@ -197,8 +200,8 @@ CKEDITOR_BASEPATH = "/static/ckeditor/ckeditor/"
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 CKEDITOR_ALLOW_NONIMAGE_FILES = True
 CKEDITOR_RESTRICT_BY_USER = False
-CKEDITOR_IMAGE_BACKEND = "pillow"
-CKEDITOR_THUMBNAIL_SIZE = (300, 300)
+# CKEDITOR_IMAGE_BACKEND = "pillow"
+# CKEDITOR_THUMBNAIL_SIZE = (300, 300)
 # CKEDITOR_FORCE_JPEG_COMPRESSION = True
 # CKEDITOR_IMAGE_QUALITY = 95 #The image quality, on a scale from 1 (worst) to 95 (best). The default is 75. Values above 95 should be avoided; 100 disables portions of the JPEG compression algorithm and results in large files with hardly any gain in image quality.
 THUMBNAIL_DEBUG = True
@@ -229,6 +232,24 @@ THUMBNAIL_DEBUG = True
 # CKEDITOR_CONFIGS = {
 #     'default': {
 #         'toolbar': 'full',
+#          'contentsCss': 'p { margin: 0; }',
+#
+#     },
+# }
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': [["Format", "Bold", "Italic", "Underline", "Strike", "SpellChecker"],
+                    ['NumberedList', 'BulletedList', "Indent", "Outdent", 'JustifyLeft', 'JustifyCenter',
+                     'JustifyRight', 'JustifyBlock'],
+                    ["Image", "Table", "Link", "Unlink", "Anchor", "SectionLink", "Subscript", "Superscript"],
+                    ['Undo', 'Redo'], ["Source"],
+                    ["Maximize"]],
+        'contentsCss': 'p { margin: 0; }',
+    },
+}
+# CKEDITOR_CONFIGS = {
+#     'default': {
+#         'toolbar': 'full',
 #          'extraPlugins': ','.join([
 #             'uploadimage', # the upload image feature
 #             # your extra plugins here
@@ -248,3 +269,37 @@ THUMBNAIL_DEBUG = True
 #
 #     },
 # }
+INTERNAL_IPS = [
+    # ...
+    '127.0.0.1',
+    # ...
+]
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR,'coolsite_cache')
+    }
+}
+# *** Settings ***
+#     TAGGIT_AUTOSUGGEST_STATIC_BASE_URL:
+#         Instead of collecting and serving the static files directly, you can
+#         also set this variable to your static base URL somewhere else.
+#     TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS (Defaults to 20):
+#         The amount of suggestions is limited, you can raise or lower the limit
+#         of default 20 using this setting.
+# *** Settings ***
+# TAGGIT_AUTOSUGGEST_STATIC_BASE_URL:
+#         Instead of collecting and serving the static files directly, you can
+#         also set this variable to your static base URL somewhere else.
+#     TAGGIT_AUTOSUGGEST_MAX_SUGGESTIONS (Defaults to 20):
+#         The amount of suggestions is limited, you can raise or lower the limit
+#         of default 20 using this setting.
+#     TAGGIT_AUTOSUGGEST_CSS_FILENAME (Defaults to 'autoSuggest.css'):
+#         Set the CSS file which best fits your site elements.
+#             The CSS file have to be in 'jquery-autosuggest/css/'.
+#     TAGGIT_AUTOSUGGEST_MODELS (Defaults to tuple('taggit','Tag'))
+#         The Tag model used, if you happen to use Taggit custom tagging.
+TAGGIT_AUTOSUGGEST_MODELS = [
+    'taggit.Tag',  # Ensure default Tag model is there just in case.
+    # 'photos.People',
+]

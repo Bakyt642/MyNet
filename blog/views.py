@@ -8,6 +8,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.utils import translation
+from django.views.decorators.cache import cache_page
 from taggit.models import Tag
 from django.utils.text import slugify
 
@@ -16,6 +17,7 @@ from .forms import CommentForm, PostForm, SearchForm
 from .models import Category, Post, Comment
 from django.views.generic import CreateView, UpdateView,DetailView
 
+# @cache_page(60 * 15)
 def post_list(request, category_slug=None,tag_slug=None):
     category = None
     categories = Category.objects.all()
@@ -25,6 +27,10 @@ def post_list(request, category_slug=None,tag_slug=None):
     if tag_slug:
         tag = get_object_or_404(Tag, slug=tag_slug)
         object_list = object_list.filter(tags__in=[tag])
+    if category_slug:
+        category = get_object_or_404(Category, slug=category_slug)
+        # posts = posts.filter(category=category)
+        object_list = object_list.filter(category=category)
     paginator = Paginator(object_list, 3)  # 3 posts in each page
     page = request.GET.get('page')
 
@@ -39,10 +45,7 @@ def post_list(request, category_slug=None,tag_slug=None):
     # If page is out of range deliver last page of results
            posts = paginator.page(paginator.num_pages)
 
-    if category_slug:
-        category = get_object_or_404(Category, slug=category_slug)
-        # posts = posts.filter(category=category)
-        posts = object_list.filter(category=category)
+
 
 
     return render(request,
@@ -125,9 +128,8 @@ def post_add (request, ):
             # create a post object but don't save to database yet
             new_post = post_form.save(commit=False)
             # assign the current slug and user to the post
-            new_post.author = request.user
+            new_post.author = request.user.profile
             new_post.slug = slugify(new_post.title)
-
 
             # save post to database
             new_post.save()
@@ -141,7 +143,7 @@ def post_add (request, ):
     else:
         post_form = PostForm()
 
-    return  render(request,'blog/post_add.html',{ 'post_form':post_form,})
+    return  render(request,'blog/post_add.html',{ 'post_form':post_form ,}) #.update({'media': post_form.media})
 
 @login_required
 def post_edit (request,  year, month, day, post):
@@ -154,7 +156,7 @@ def post_edit (request,  year, month, day, post):
 
 
     if request.method == 'POST':
-        if post_form.is_valid() and post.author == request.user :
+        if post_form.is_valid() and post.author.user == request.user :
             post_form.save()
             messages.success(request, 'Post updated successfully')
             return HttpResponseRedirect(reverse('post_list'))
@@ -162,7 +164,7 @@ def post_edit (request,  year, month, day, post):
             messages.error(request, 'Error updating your post')
 
     else:
-        data_prepopulated ={'body':post.body, 'title':post.title,'category':post.category}
+        data_prepopulated ={'body':post.body, 'title':post.title,'category':post.category,'tags':post.tags.all()} #'tags':post.tags
         post_form = PostForm(initial=data_prepopulated)
 
     return render(request, 'blog/post_edit.html', {'post_form': post_form, })
@@ -365,3 +367,5 @@ def selectlanguage(request):
 #             return redirect(post_url + '#' + str(reply.id))
 #
 #     return redirect("/")
+def about (request):
+    return render(request,'blog/about.html')

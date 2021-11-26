@@ -1,10 +1,11 @@
 from django.http import HttpResponse, HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.urls import reverse
 
+from blog.models import Post
 from .models import Profile
 from .forms import LoginForm, UserRegistrationForm, \
                    UserEditForm, ProfileEditForm
@@ -32,11 +33,23 @@ def user_login(request):
     return render(request, 'account/login.html', {'form': form})
 
 
+
 @login_required
 def dashboard(request):
     return render(request,
                   'account/dashboard.html',
                   {'section': 'dashboard'})
+
+@login_required
+def author(request,post):
+     current_post = Post.objects.get(title=post)
+     posts= Post.objects.filter(author=current_post.author)
+     print(post)
+     return render(request,
+                  'account/author.html',
+                  {'post':current_post,
+                   'author':author,
+                   'posts':posts})
 
 
 def register(request):

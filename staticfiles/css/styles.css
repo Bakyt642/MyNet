@@ -1,3 +1,5 @@
+
+
 :root {
   --primary-color: #3F4137;
 }
@@ -42,12 +44,17 @@ ul.mainmenu li a {
 ul.mainmenu li a:hover {
 	color: #FDA83D;
 }
+ul.mainmenu li.language {
+    margin: -20px 0 0 20px;
 
+}
 #sidebar {
  	margin: 0;
 	background: #eee;
-	border-right: 1px solid #ccc;
-	height: 100%;
+   /*border-right: 1px solid #ccc;*/
+	min-height:100%;
+
+
 	}
 
 #sidebar ul {
@@ -56,7 +63,7 @@ ul.mainmenu li a:hover {
 	margin: 0;
 	padding: 20px 10px 10px 20px;
 	list-style: none;
-	font-size: 20px;
+	font-size: 18px;
 }
 
 #sidebar ul li {
@@ -142,6 +149,7 @@ input[type="submit"] {
 .asteriskField{
 display:none;
 }
+/*
 .photo-clear{
 display:none;
 }
@@ -151,11 +159,16 @@ display:none;
 #photo-clear_id {
 display:none;
 }
+*/
 p.date {
     color:#ccc;
     font-family: georgia, serif;
-    font-size: 12px;
+    font-size: 20px;
     font-style: italic;
+    margin-top:40px;
+    vertical-align: bottom;
+
+
 }
 
 /* social-auth */
@@ -198,7 +211,7 @@ p.date {
 }
 /* pagination */
 .pagination {
-    margin:40px 0;
+    margin:40px 0 0 10px;
     font-weight:bold;
 }
 
@@ -210,12 +223,12 @@ h1 {
 #content {
     float:left;
     width:60%;
-    padding:0 0 0 30px;
+
+
 }
 
 #sidebar  {
     float:right;
-
     padding:10px;
     background:#efefef;
     height:100%;
@@ -266,7 +279,9 @@ a.like, a.follow { float:right; margin-top:-8px; }
 }
 .img-profile {
 border-radius:50%;
+margin-right:10px;
 }
+
 .profile-edit  br {
 display:none;
 
@@ -278,12 +293,11 @@ display:none;
 
 /* messages */
 ul.messages {
-    margin:0;
+    margin:0 0 30px 300px;
     padding:0;
-    list-style-type:
-    none;
+    list-style-type:none;
     text-align: center;
-    float:top;
+    align:center;
     border-radius: 5em;
 }
 ul.messages li.success,
@@ -316,7 +330,7 @@ ul.messages li a.close {
     box-shadow:none;
     text-shadow:none;
 }
-
+/*
 .comment-form textarea {
     clear:both;
     float:left;
@@ -327,6 +341,7 @@ ul.messages li a.close {
     width: 400px;
     height: 150px;
 }
+*/
 /*
 #sidebar  ul.left-chapters li.selected a   {
        color: red;
@@ -334,3 +349,81 @@ ul.messages li a.close {
 #sidebar  ul.left-chapters li.selected   {
        color: red;
  } */
+.content-editor-image-left {
+    float: left;
+    margin: 10px 20px 10px 0;
+}
+
+.detail-postimg p img {
+    /*transform: scale(0.5); */
+   max-height:auto;
+   max-width:100%;
+    align:left;
+
+
+}
+.post-list p img {
+   max-height:auto;
+   max-width:100%;
+   display:none;
+}
+p.link-read-post {
+	text-align: right;
+}
+p.link-read-post a {
+	padding: 10px;
+	min-width: 100px;
+	background: #333671;
+	color: #fff;
+	text-decoration: none;
+}
+.medium-text {
+   color: #333671;
+   font-size: 20px;
+   text-decoration: none;
+
+}
+.large-text {
+   color: #333671;
+   font-size: 25px;
+
+}
+.grand-text {
+   color: #333671;
+   font-size: 28px;
+   align-text:center;
+
+}
+.large-text a {
+   color: #333671;
+   font-size: 25px;
+   font:bold;
+   text-decoration: none;
+}
+.medium-text a {
+    color: #333671;
+    font-size: 20px;
+    text-decoration: none;
+
+ }
+ .medium-text a:hover {
+    color: var(--primary-color);
+    text-decoration: none;
+ }
+.tags a {
+ 
+    text-decoration: none;
+ }
+.tags a:hover {
+    color: var(--primary-color);
+    text-decoration: none;
+ }
+
+.delete-icon {
+margin: 20px;
+
+}
+
+.icons-items {
+margin-bottom:50px;
+}

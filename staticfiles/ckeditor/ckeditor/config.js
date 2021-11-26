@@ -7,4 +7,23 @@ CKEDITOR.editorConfig = function( config ) {
 	// Define changes to default configuration here. For example:
 	// config.language = 'fr';
 	// config.uiColor = '#AADC6E';
+
 };
+CKEDITOR.replace( 'editor1',
+{
+    on :
+    {
+        instanceReady : function( ev )
+        {
+            // Output paragraphs as <p>Text</p>.
+            this.dataProcessor.writer.setRules( 'p',
+                {
+                    indent : false,
+                    breakBeforeOpen : true,
+                    breakAfterOpen : false,
+                    breakBeforeClose : false,
+                    breakAfterClose : true
+                });
+        }
+    }
+});

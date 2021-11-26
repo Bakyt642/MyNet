@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block title %}Edit your account{% endblock %}
 
 {% block content %}
@@ -12,7 +12,9 @@
   <img  class="img-profile" width="64" height="64" src="{{ user.profile.photo.url }}">
   <form class="profile-edit" method="post" enctype="multipart/form-data">
     {{ user_form.as_p }}
-    {{ profile_form.as_p }}
+    {{ profile_form.media  }}
+    <div class="postlist">      {{ profile_form.about|as_crispy_field }}</div>
+    <div >      {{ profile_form.photo|as_crispy_field }}</div>
 
     {% csrf_token %}
     <p><input type="submit" value="Save changes"></p>

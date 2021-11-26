@@ -13,6 +13,8 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import debug_toolbar
+
 from blog import views
 from django.conf.urls import url
 from django.conf.urls.i18n import i18n_patterns
@@ -45,6 +47,12 @@ urlpatterns += i18n_patterns  (
     # url(r'^browse/', never_cache(login_required(views.browse)), name='ckeditor_browse'),
     url(r'^ckeditor/upload/', login_required(ckeditor_views.upload), name='ckeditor_upload'),
     url(r'^ckeditor/browse/', never_cache(login_required(ckeditor_views.browse)), name='ckeditor_browse'),
+    # url(r'^taggit_autosuggest/', include('taggit_autosuggest.urls')),
+    # path('taggit_autosuggest/', include('taggit_autosuggest.urls')),
+    # url(r'^tagging_autocomplete/', include('tagging_autocomplete.urls')),
 )
 if settings.DEBUG:
+    urlpatterns = [
+        path('__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

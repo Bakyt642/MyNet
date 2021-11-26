@@ -1,16 +1,17 @@
 {% extends "base.html" %}
 {% load static %}
-{% load easy_thumbnails_tags %}
 {% load i18n %}
 
 
 {% block content %}
-<h1>{% if category %}{{ category.name }}{% else %}" {% trans "Posts" %}{% endif %}</h1>
+
     {% for post in posts %}
 {% if tag %}
 <h2>{% trans "Posts tagged with" %} "{{ tag.name }}"</h2>
 {% endif %}
+<div class="large-text">
         <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+</div>
         <br>
  <p class="tags">
       {% trans "Tags" %}:
@@ -21,12 +22,14 @@
         {% if not forloop.last %}, {% endif %}
       {% endfor %}
     </p>
-    <p class="date">
-        <img class="img-profile"  width="64" height="64" src="{{ user.profile.photo.url }}">
 
-      {% trans "Published" %} {{ post.publish }} {% trans "by" %} {{ post.author }}
+    <p class="date">
+    {% trans "Published" %} {{ post.publish }} {% trans "by" %} {{ post.author }}
     </p>
-      {{ post.body|safe|linebreaks|truncatewords:50 }}
+    <div class="post-list">
+      {{ post.body|safe|linebreaks|truncatewords:80 }}
+    </div>
+    <p class="link-read-post"><a href="{{ post.get_absolute_url }}">Read more</a></p>
     {% endfor %}
 
 {% include "blog/pagination.html" with page=posts %}

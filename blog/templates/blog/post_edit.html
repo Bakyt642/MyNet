@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load crispy_forms_tags %}
 {% block content %}
 <div class="row justify-content-start">
 
@@ -7,17 +7,11 @@
   <form action="" method="POST">
     {% csrf_token %}
     {{ post_form.media }}
-       <div class="postlist">   {{ post_form.category.label }} </div>
-      <div class="postlist">      {{ post_form.category }}</div>
-      <div class="postlist">  {{ post_form.category.error }} </div>
-        <div class="postlist">   {{ post_form.title.label }} </div>
-      <div class="postlist">      {{ post_form.title }}</div>
-      <div class="postlist">   {{ post_form.title.error }} </div>
-        <div class="postlist">   {{ post_form.body.label }} </div>
-      <div class="postlist">      {{ post_form.body|safe }}</div>
-      <div class="postlist">   {{ post_form.body.error }} </div>
-
-    <input type="submit" value="Edit Post"></p>
+      <div class="postlist">      {{ post_form.category|as_crispy_field }}</div>
+      <div class="postlist">      {{ post_form.title|as_crispy_field }}</div>
+      <div class="postlist">      {{ post_form.body|as_crispy_field }}</div>
+      <div class="postlist">       {{ post_form.tags|as_crispy_field }}</div>
+    <input type="submit" value="Edit Post">
   </form>
 </div>
 </div>

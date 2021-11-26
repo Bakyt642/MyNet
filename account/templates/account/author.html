@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}About Author{% endblock %}
+{% block content %}
+<div class="row justify-content-start">
+        <div class="col-md-4">
+            <img class="img-about"  width="300" height="300" src="{{ post.author.photo.url }}">
+
+            <div class="row my-2"> <div><div class="medium-text">{% trans "Username:" %} {{ post.author.user.first_name  }}</div></div></div>
+
+            <div class="row mt-5"><div><div class="medium-text">{% trans "Articles posted by" %} {{ post.author.user }}: </div> </div> </div>
+            <ul>
+        {% for post in posts %}
+        <li> <a href="{{ post.get_absolute_url }}">   {{ post.title }} </a></li>
+            {% endfor %}
+           </ul>
+        </div>
+    <div class="col-md-6 ">
+        <div class="row mb-4" ><div class="grand-text" >{% trans "About Author" %} </div> </div>
+          <div class="medium-text"> {{ post.author.about|safe  }} </div>
+</div>
+</div>
+    {% endblock %}
