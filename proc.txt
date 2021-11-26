@@ -1,0 +1,1 @@
+web : gunicorn NetShoot.wsgi --log-file -
