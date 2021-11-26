@@ -26,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-hd)c&j%e6omasl!l8oyirq=&!1&afwbr835oe0g9=(^g$upm2$'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # ALLOWED_HOSTS = ['netshoot.kz', 'www.netshoot.kz', 'https://netshoot.kz', 'localhost', '127.0.0.1']
 ALLOWED_HOSTS = ['netshoot.kz','127.0.0.1', 'sarmanovbakyt-blog.herokuapp.com','sarmanovbakyt-blog.herokuapp.com/en/']
@@ -110,7 +110,7 @@ DATABASES = {
         #   'NAME': BASE_DIR / 'db.sqlite3',
 }
 }
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 import dj_database_url
 db_from_env = dj_database_url.config(conn_max_age=600)
 DATABASES['default'].update(db_from_env)
