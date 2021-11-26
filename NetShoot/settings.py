@@ -101,10 +101,12 @@ WSGI_APPLICATION = 'NetShoot.wsgi.application'
 # }
 DATABASES = {
       'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'blogdb',
-        'USER': 'bacho',
-        'PASSWORD': 'bacho',
+        # 'ENGINE': 'django.db.backends.postgresql',
+        # 'NAME': 'blogdb',
+        # 'USER': 'bacho',
+        # 'PASSWORD': 'bacho',
+          'ENGINE': 'django.db.backends.sqlite3',
+          'NAME': BASE_DIR / 'db.sqlite3',
 }
 }
 
