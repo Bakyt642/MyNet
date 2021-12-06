@@ -3,7 +3,7 @@ boot version5.1
 
 
 
-
+PGUSER=bacho PGPASSWORD=bacho heroku pg:push postgres://localhost/blogdb   postgresql-curved-99670
 
 
 
